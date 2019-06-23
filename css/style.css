@@ -1,0 +1,56 @@
+body {
+   width: 960px;
+   margin: 0 auto;
+   font-family: sans-serif;
+}
+
+h3 {
+   font-weight: bold;
+   background-color: #1D3050;
+   color: white;
+   padding: 8px;
+   margin: 0 -8px;
+}
+
+dt, dd {
+   vertical-align: middle;
+   margin-bottom: 10px;
+}
+
+dt {
+   font-weight: bold;
+}
+
+dt.main {
+   background: #1D3050;
+   color: white;
+   padding: 5px;
+}
+
+ul.disc {
+      list-style-type: square;
+}
+
+a.white {
+   color: white;
+}
+
+table.header {
+   width: 976px;
+   background-color: #1D3050;
+   color: white;
+   padding-top: 13px;
+   padding-bottom: 5px;
+   padding-left: 15px;
+   padding-right: 15px;
+   margin-left: -8px;
+   margin-right: -8px;
+}
+
+td.indexname {
+   font-size: 125%;
+}
+
+td.indexmail {
+   font-size: 75%;
+}
