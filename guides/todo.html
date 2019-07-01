@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Guide to install things I like in Fedora 30">
+        <meta name="keywords" content="telegram, slack, vpn, fedora30, guide">
+        <meta name="author" content="Igor Nunes">
+        <meta name="date" content="2019-06-30T03:00:00+00:00">
+        <meta name="last-modified" content="2019-06-31T03:38:00+00:00">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>thoga31 &mdash; Things I like on Fedora 30</title>
+    </head>
+
+    <body>
+        <h1 id="top"><center>Install and configure things I like on Fedora 30</center></h1>
+        <p class="top"><a href="../index.html">Back</a></p>
+
+        <p>This page is a collection of things I personally do after installing Fedora.</p>
+        <p>It may be useful for you, so enjoy!</p>
+
+        <h3>Index</h3>
+        <ol>
+            <li><a href="#telegram">Install Telegram</a></li>
+            <li><a href="#slack">Install Slack</a></li>
+            <li><a href="#pptp">Allow the PPTP protocol</a></li>
+            <li><a href="#zsh">Install ZSH, TMUX and W3M</a></li>
+            <li><a href="#shell">Create some automation through shell scripts</a></li>
+        </ol>
+
+        <br><hr><br><br>
+
+        <h2 id="telegram">1. Install Telegram</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>Do this as root or use <tt>sudo</tt>:</p>
+        <pre><code>
+# Install repositories
+dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# Update
+dnf update
+
+# Install Telegram
+dnf install telegram-desktop
+        </code></pre>
+
+
+        <h2 id="slack">2. Install Slack</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>Do this as root or use <tt>sudo</tt> where needed:</p>
+        <pre><code>
+# Get the installer from official site:
+wget https://downloads.slack-edge.com/linux_releases/slack-3.4.2-0.1.fc21.x86_64.rpm
+
+# Rename for our eye's sake
+mv slack-3.4.2-0.1.fc21.x86_64.rpm slack.rpm
+
+# Install Slack (needs root permission)
+rpm -i slack.rpm
+        </code></pre>
+
+
+        <h2 id="pptp">3. Allow the PPTP protocol</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>Do this as root (or <tt>sudo</tt> away all of it):</p>
+        <pre><code>
+firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p gre -j ACCEPT
+firewall-cmd --permanent --direct --add-rule ipv6 filter INPUT 0 -p gre -j ACCEPT
+firewall-cmd --reload
+modprobe nf_conntrack_pptp nf_conntrack_proto_gre
+        </code></pre>
+
+        <h2 id="zsh">4. Install ZSH, TMUX and W3M</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>Run as root or <tt>sudo</tt> things away.</p>
+        <ul>
+            <li>Install <b>Oh My Zsh</b>:
+                <pre><code>
+sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+                </code></pre>
+            </li>
+            <li>Install <b>tmux</b>
+                <pre><code>dnf install tmux</code></pre>
+            </li>
+            <li>Install <b>w3m</b> and create personalized command</li>
+                <pre><code>
+dnf install w3m
+echo "alias search='w3m https://duckduckgo.com/'" >> ~/.zshrc
+source ~/.zshrc
+                </code></pre>
+        </ul>
+        
+
+
+        <h2 id="shell">5. Create some automation through shell scripts</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <ol style="1">
+            <li>Create a folder to save the scripts:
+                <pre><code>
+mkdir ~/.zshrc.d
+                </code></pre>
+            </li>
+            <li>Append the following code to <tt>~/.zshrc</tt>
+                <pre><code>
+for cfg in "$HOME"/.zshrc.d/*.zsh; do
+    . "$cfg"
+done
+unset -v cfg
+                </code></pre>
+            </li>
+            <li>Create the file <tt>gcc.zsh</tt> in the directory we previously created with <a href="https://github.com/thoga31/thoga31.github.io/blob/master/guides/code/gcc.zsh" target="_blank">this script</a>.</li>
+            <li>Create the file <tt>gl.zsh</tt> in the directory we previously created with <a href="https://github.com/thoga31/thoga31.github.io/blob/master/guides/code/gl.zsh" target="_blank">this script</a>.</li>
+            <li>Reload the resource script for zsh with <tt>source</tt>.</li>
+        </ol>
+    </body>
+</html>

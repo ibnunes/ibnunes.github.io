@@ -28,8 +28,8 @@ dt.main {
    padding: 5px;
 }
 
-ul.disc {
-      list-style-type: square;
+ul {
+   list-style-type: square;
 }
 
 a.white {

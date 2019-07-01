@@ -28,7 +28,7 @@
 
         <br><hr><br><br>
 
-        <h2 id="gpp">Install g++</h2>
+        <h2 id="gpp">1. Install g++</h2>
         <p class="top"><a href="#top">Back to top</a></p>
 
         <p><tt>g++</tt> is necessary to compile OpenGL projects, so one needs to install it as follows:</p>
@@ -37,7 +37,7 @@ dnf install g++
         </code></pre>
 
 
-        <h2 id="glfw">Install GLFW</h2>
+        <h2 id="glfw">2. Install GLFW</h2>
         <p class="top"><a href="#top">Back to top</a></p>
 
         <p>
@@ -62,37 +62,9 @@ make install
         </code></pre>
 
 
-        <h2 id="auto">Automate things</h2>
+        <h2 id="auto">3. Automate things</h2>
         <p class="top"><a href="#top">Back to top</a></p>
 
-        <p>Lets automate things a little bit with bash or zsh.</p>
-        <ol style="1">
-            <li>Create a folder to save the scripts:
-                <pre><code>
-# For BASH
-mkdir ~/.bashrc.d
-
-# For ZSH
-mkdir ~/.zshrc.d
-                </code></pre>
-            </li>
-            <li>Append the following code to <tt>~/.bashrc</tt> or <tt>~/.zshrc</tt>
-                <pre><code>
-# For BASH
-for cfg in "$HOME"/.bahrc.d/*.bash; do
-
-# For ZSH
-for cfg in "$HOME"/.zshrc.d/*.zsh; do
-
-# For BOTH, add the following after the previous line
-    . "$cfg"
-done
-unset -v cfg
-                </code></pre>
-            </li>
-            <li><b>OPTIONAL to compile C files:</b> Create the file <tt>gcc.bash</tt> or <tt>gcc.zsh</tt> in the directory we previously created with <a href="https://github.com/thoga31/thoga31.github.io/blob/master/guides/code/gcc.zsh" target="_blank">this script</a>.</li>
-            <li>Create the file <tt>gl.bash</tt> or <tt>gl.zsh</tt> in the directory we previously created with <a href="https://github.com/thoga31/thoga31.github.io/blob/master/guides/code/gl.zsh" target="_blank">this script</a>.</li>
-            <li>Reload the resource script for bash or zsh with <tt>source</tt>.</li>
-        </ol>
+        <p>In <a href="todo.html#shell">this personal guide</a> I coded some shell scripts to automate compilation. Head over to point 4 of the list for my homemade <tt>rungl</tt> command.</p>
     </body>
 </html>
