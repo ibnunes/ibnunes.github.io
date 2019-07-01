@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Guide to install CUDA in Fedora 30">
+        <meta name="keywords" content="cuda, fedora30, guide">
+        <meta name="author" content="Igor Nunes">
+        <meta name="date" content="2019-06-30T02:13:00+00:00">
+        <meta name="last-modified" content="2019-06-31T02:30:00+00:00">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>thoga31 &mdash; Install CUDA on Fedora 30</title>
+    </head>
+
+    <body>
+        <h1 id="top"><center>Install CUDA on Fedora 30</center></h1>
+
+        <p class="important">
+            The results were not tested yet. <b>This may NOT work! Do it AYOR!</b>
+        </p>
+
+        <p class="top"><a href="../index.html">Back</a></p>
+
+        <h3>Index</h3>
+        <ol>
+            <li><a href="#repo">Add repositories</a></li>
+            <li><a href="#cuda">Install CUDA</a></li>
+        </ol>
+
+        <h3>General instructions</h3>
+        <p><b>I recommend performing all operations as root, using <tt>su</tt>.</b></p>
+
+        <h3>Alternative guide</h3>
+        <p>Use <a href="https://www.if-not-true-then-false.com/2018/install-nvidia-cuda-toolkit-on-fedora/">this guide</a> from <i>If Not True Then False</i> as an alternative. The guide is not reportedly tested for Fedora 30, so <b>do it AYOR</b>.</p>
+
+        <br><hr><br><br>
+
+        <h2 id="repo">Add repositories</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>First of all, we need to install the necessary repositories from <i>negativo17</i>:</p>
+        <pre><code>
+dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo
+        </code></pre>
+
+        <h2 id="cuda">Install CUDA</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>Since we already have the NVidia graphic drivers installed using <a href="nvidia.html">this guide</a>, all we need now is the following:</p>
+        <pre><code>
+dnf install cuda nvidia-driver-cuda cuda-devel
+        </code></pre>
+
+        <br><hr><br>
+        <p class="important">
+            This page was made for personal use, based on <a href="https://negativo17.org/nvidia-driver/">this tutorial</a> from <i>negativo17</i>.<br>
+            I do NOT own this information NOR the repositories used in this guide!<br>
+            This guide is slightly adapted to MY personal preference and professional needs.<br>
+        </p>
+        <br>
+    </body>
+</html>

@@ -2,13 +2,13 @@
 <html lang="pt" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <meta name="description" content="Guide to install OpenGL in Fedora 30">
-        <meta name="keywords" content="opengl, fedora30, guide">
+        <meta name="description" content="Guide to install NVidia drivers in Fedora 30">
+        <meta name="keywords" content="nvidia, fedora30, guide">
         <meta name="author" content="Igor Nunes">
         <meta name="date" content="2019-06-30T23:30:00+00:00">
-        <meta name="last-modified" content="2019-06-31T02:00:00+00:00">
+        <meta name="last-modified" content="2019-06-31T02:13:00+00:00">
         <link rel="stylesheet" href="../css/style.css">
-        <title>thoga31 &mdash; Yet another personal little corner on the Internet</title>
+        <title>thoga31 &mdash; Install NVidia drivers on Fedora 30</title>
     </head>
 
     <body>
@@ -62,7 +62,7 @@ dnf remove xorg-x11-drv-nouveau
 exclude=xorg-x11*
         </code></pre>
 
-        <p>Finally, we need to generate initamfs (we first create a backup):</p>
+        <p>Finally, we need to generate initramfs (we first create a backup):</p>
         <pre><code>
 mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r)-nouveau.img
 dracut /boot/initramfs-$(uname -r).img $(uname -r)
@@ -107,7 +107,7 @@ dnf install vdpauinfo libva-vdpau-driver libva-utils
 
         <br><hr><br>
         <p class="important">
-            This page was made for personal use, based on <a href="">this tutorial</a> from <i>If Not True Then False</i>.<br>
+            This page was made for personal use, based on <a href="https://www.if-not-true-then-false.com/2018/install-nvidia-cuda-toolkit-on-fedora/">this tutorial</a> from <i>If Not True Then False</i>.<br>
             I do NOT own this information NOR did I discover this process!<br>
             This guide is slightly adapted to MY personal preference and professional needs.<br>
         </p>
