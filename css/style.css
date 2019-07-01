@@ -1,4 +1,5 @@
 body {
+   font-size: 12.0pt;
    width: 960px;
    margin: 0 auto;
    font-family: sans-serif;
@@ -53,4 +54,44 @@ td.indexname {
 
 td.indexmail {
    font-size: 75%;
+}
+
+
+/* Additional styles */
+
+h1 {
+   font-size: 25.0pt;
+   /* color: #3366FF; */
+   color: white;
+   background-color: #1D3050;
+   padding: 8px;
+   margin: 0 -8px;
+}
+
+h2 {
+   background-color: #1D3050;
+   color: white;
+   padding: 8px;
+   margin: 0 -8px;
+}
+
+p.top {
+   font-size: 8pt;
+   font-style: italic;
+}
+
+p.important {
+   background-color: rgb(255, 220, 0);
+   padding: 8px;
+   margin: 0 -8px;
+}
+
+p.important::before {
+   content: "IMPORTANT NOTE:";
+   font-weight: bold;
+   color: red;
+}
+
+li {
+   margin: 10px 0;
 }

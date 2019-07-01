@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Guide to install OpenGL in Fedora 30">
+        <meta name="keywords" content="opengl, fedora30, guide">
+        <meta name="author" content="Igor Nunes">
+        <meta name="date" content="2019-06-30T23:30:00+00:00">
+        <meta name="last-modified" content="2019-06-31T02:00:00+00:00">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>thoga31 &mdash; Yet another personal little corner on the Internet</title>
+    </head>
+
+    <body>
+        <h1 id="top"><center>Install NVidia drivers on Fedora 30</center></h1>
+
+        <p class="top"><a href="../index.html">Back</a></p>
+
+        <h3>Index</h3>
+        <ol>
+            <li><a href="#nouveau">Disable the <tt>nouveau</tt> driver</a></li>
+            <li><a href="#nvidia">Install the NVidia driver</a></li>
+        </ol>
+
+        <h3>General instructions</h3>
+        <p>Right after installing Fedora 30, do the following steps to avoid the OS to crash due to the <tt>nouveau</tt> drivers.</p>
+        <p>Boot to <b>runlevel 3</b> as follows:</p>
+        <ol style='1'>
+            <li>Press 'E' while booting to GRUB;</li>
+            <li>Add '3' right after the <tt>quiet</tt> word;</li>
+            <li>Press Ctrl+X.</li>
+        </ol>
+        <p><b>I recommend to do it all at runlevel 3!</b></p>
+
+        <br><hr><br><br>
+
+        <h2 id="nouveau">1. Disable the <tt>nouveau</tt> driver</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>Add the driver to the blacklist:</p>
+        <pre><code>
+echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
+        </code></pre>
+
+        <p>Edit the <tt>/etc/sysconfig/grub</tt> file and add <tt>rd.driver.blacklist=nouveau</tt> to <tt>GRUB_CMDLINE_LINUX</tt> to look as follows:</p>
+        <pre><code>
+GRUB_CMDLINE_LINUX="rd.lvm.lv=fedora/swap rd.lvm.lv=fedora/root rhgb quiet rd.driver.blacklist=nouveau"
+        </code></pre>
+
+        <p>Update grub2:</p>
+        <pre><code>
+grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+        </code></pre>
+
+        <p>Uninstall the driver:</p>
+        <pre><code>
+dnf remove xorg-x11-drv-nouveau
+        </code></pre>
+
+        <p>If the following line is present at <tt>/etc/dnf/dnf.conf</tt>, <b>remove it</b>:</p>
+        <pre><code>
+exclude=xorg-x11*
+        </code></pre>
+
+        <p>Finally, we need to generate initamfs (we first create a backup):</p>
+        <pre><code>
+mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r)-nouveau.img
+dracut /boot/initramfs-$(uname -r).img $(uname -r)
+        </code></pre>
+
+
+        <h2 id="nvidia">2. Install the NVidia driver</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p><b>Enter to root mode with <tt>su</tt>. Update the system by using <tt>dnf update</tt>. Install needed dependencies:</b></p>
+        <pre><code>
+dnf install kernel-devel kernel-headers gcc make dkms acpid \
+libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
+        </code></pre>
+        <p><b>Reboot the system and boot to runlevel 3.</b></p>
+
+        <p>Download the installer from NVidia, make it executable and run it:</p>
+        <pre><code>
+cd ~/Downloads
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/430.26/NVIDIA-Linux-x86_64-430.26.run
+chmod +x NVIDIA-Linux-x86_64-430.26.run
+./NVIDIA-Linux-x86_64-430.26.run
+        </code></pre>
+
+        <p>Follow the steps:</p>
+        <ol style='1'>
+            <li>Register the kernel source modules with DKMS: <b>YES</b></li>
+            <li>Install 32-bit compatibility libraries: <b>YES</b></li>
+            <li><i>Wait while installing drivers and building kernel module...</i> <b>In case of error</b> <a href="https://www.if-not-true-then-false.com/2015/fedora-nvidia-guide/4/#libglvnd-error">try this</a></li>
+            <li>Automatic Xorg configuration and backup: <b>YES</b></li>
+            <li><i>The installation is complete.</i></li>
+        </ol>
+
+        <p>Ultimately, install the libraries needed for hardware acceleration:/p>
+        <pre><code>
+dnf install vdpauinfo libva-vdpau-driver libva-utils
+        </code></pre>
+
+        <p><b>And that's it!</b></p>
+
+
+
+        <br><hr><br>
+        <p class="important">
+            This page was made for personal use, based on <a href="">this tutorial</a> from <i>If Not True Then False</i>.<br>
+            I do NOT own this information NOR did I discover this process!<br>
+            This guide is slightly adapted to MY personal preference and professional needs.<br>
+        </p>
+        <br>
+    </body>
+</html>
