@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Guide to install OpenGL in Fedora 30">
+        <meta name="keywords" content="opengl, fedora30, guide">
+        <meta name="author" content="Igor Nunes">
+        <meta name="date" content="2019-06-30T03:00:00+00:00">
+        <meta name="last-modified" content="2019-06-31T04:00:00+00:00">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>thoga31 &mdash; Install OpenGL on Fedora 30</title>
+    </head>
+
+    <body>
+        <h1 id="top"><center>Install OpenGL on Fedora 30</center></h1>
+        <p class="top"><a href="../index.html">Back</a></p>
+
+        <h3>Index</h3>
+        <ol>
+            <li><a href="#gpp">Install g++</a></li>
+            <li><a href="#glfw">Install GLFW</a></li>
+            <li><a href="#auto">Automate things</a></li>
+        </ol>
+
+        <h3>General instructions</h3>
+        <p><b>I recommend performing all operations as root, using <tt>su</tt>.</b></p>
+
+
+        <br><hr><br><br>
+
+        <h2 id="gpp">Install g++</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p><tt>g++</tt> is necessary to compile OpenGL projects, so one needs to install it as follows:</p>
+        <pre><code>
+dnf install g++
+        </code></pre>
+
+
+        <h2 id="glfw">Install GLFW</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>
+            I'm using the Downloads directory. Use a directory of your choice. 
+            Create a folder <tt>glfw</tt> where we'll unzip GLFW files downloaded from the official site.
+        </p>
+
+        <pre><code>
+cd ~/Downloads
+mkdir glfw
+wget https://github.com/glfw/glfw/releases/download/3.3/glfw-3.3.zip
+unzip glfw-3.3.zip
+        </code></pre>
+
+        <p>Enter the folder, build and install GLFW:</p>
+        <pre><code>
+cd glfw-3.3
+dnf builddep glfw
+cmake -G "Unix Makefiles"
+make
+make install
+        </code></pre>
+
+
+        <h2 id="auto">Automate things</h2>
+        <p class="top"><a href="#top">Back to top</a></p>
+
+        <p>Lets automate things a little bit with bash or zsh.</p>
+        <ol style="1">
+            <li>Create a folder to save the scripts:
+                <pre><code>
+# For BASH
+mkdir ~/.bashrc.d
+
+# For ZSH
+mkdir ~/.zshrc.d
+                </code></pre>
+            </li>
+            <li>Append the following code to <tt>~/.bashrc</tt> or <tt>~/.zshrc</tt>
+                <pre><code>
+# For BASH
+for cfg in "$HOME"/.bahrc.d/*.bash; do
+
+# For ZSH
+for cfg in "$HOME"/.zshrc.d/*.zsh; do
+
+# For BOTH, add the following after the previous line
+    . "$cfg"
+done
+unset -v cfg
+                </code></pre>
+            </li>
+            <li><b>OPTIONAL to compile C files:</b> Create the file <tt>gcc.bash</tt> or <tt>gcc.zsh</tt> in the directory we previously created with <a href="https://github.com/thoga31/thoga31.github.io/blob/master/guides/code/gcc.zsh" target="_blank">this script</a>.</li>
+            <li>Create the file <tt>gl.bash</tt> or <tt>gl.zsh</tt> in the directory we previously created with <a href="https://github.com/thoga31/thoga31.github.io/blob/master/guides/code/gl.zsh" target="_blank">this script</a>.</li>
+            <li>Reload the resource script for bash or zsh with <tt>source</tt>.</li>
+        </ol>
+
+        <br><hr><br>
+        <p class="important">
+            This page was made for personal use, based on <a href="https://negativo17.org/nvidia-driver/">this tutorial</a> from <i>negativo17</i>.<br>
+            I do NOT own this information NOR the repositories used in this guide!<br>
+            This guide is slightly adapted to MY personal preference and professional needs.<br>
+        </p>
+        <br>
+    </body>
+</html>
